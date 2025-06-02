@@ -1,0 +1,49 @@
+@use 'mixins';
+
+$header-height: 66px;
+$footer-height: 66px;
+* {
+	margin: 0;
+	padding: 0;
+}
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+header {
+	height: $header-height;
+	background-color: blue;
+	color: white;
+	text-align: center;
+	display: flex;
+	@include mixins.flex-center;
+}
+
+footer {
+	height: $footer-height;
+	background-color: red;
+	color: white;
+	@include mixins.flex-center;
+}
+
+main {
+	min-height: calc(100vh - #{$header-height} - #{$footer-height});
+	display: flex;
+	// @include mixins.flex-center;
+	> div {
+		display: flex;
+		@include mixins.flex-center;
+		flex: 1;
+		flex-direction: column;
+		border: 2px dashed green;
+		> button {
+			font-size: 20px;
+			padding: 0.4em;
+			cursor: pointer;
+			margin: 1em;
+		}
+	}
+}

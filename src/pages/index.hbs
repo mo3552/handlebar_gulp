@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="main.css" />
+  <title>Gulp Handlebars Page</title>
+</head>
+<body>
+  {{> header}}
+  <main>
+    {{> body-left}}
+	{{> body-right}}
+  </main>
+  {{> footer}}
+
+  <!-- jQuery 및 스크립트 -->
+  <script src="jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+		$('#fncBodyBtn').click(function(){
+			alert($(this).text());
+		});
+      console.log('jquery loaded!');
+    });
+  </script>
+</body>
+</html>

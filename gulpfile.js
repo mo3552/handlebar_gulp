@@ -1,0 +1,77 @@
+const gulp = require('gulp');
+const handlebars = require('gulp-compile-handlebars');
+const rename = require('gulp-rename');
+const cleanCSS = require('gulp-clean-css');
+const sourcemaps = require('gulp-sourcemaps');
+const browserSync = require('browser-sync').create();
+const sass = require('gulp-sass')(require('sass'));
+
+const paths = {
+	pages: 'src/pages/*.hbs',
+	partials: 'src/partials/**/*.hbs',
+	styles: {
+		scss: 'src/styles/scss/*.scss'
+	},
+	dist: 'dist'
+};
+
+// Handlebars 빌드
+function templates() {
+	const options = {
+		batch: ['src/partials']
+	};
+	return gulp.src(paths.pages)
+		.pipe(handlebars({}, options))
+		.pipe(rename({
+			extname: '.html'
+		}))
+		.pipe(gulp.dest(paths.dist))
+		.pipe(browserSync.stream());
+}
+
+// CSS 빌드
+function styles() {
+	return gulp.src(paths.styles)
+		.pipe(sourcemaps.init())
+		.pipe(cleanCSS())
+		.pipe(sourcemaps.write('.'))
+		.pipe(gulp.dest(paths.dist))
+		.pipe(browserSync.stream());
+}
+
+// Sass 빌드
+function styles() {
+	return gulp.src(paths.styles.scss)
+		.pipe(sourcemaps.init())
+		.pipe(sass().on('error', sass.logError))
+		.pipe(cleanCSS())
+		.pipe(sourcemaps.write('.'))
+		.pipe(gulp.dest(paths.dist))
+		.pipe(browserSync.stream());
+}
+
+// jQuery 복사
+function copyJquery() {
+	return gulp.src('node_modules/jquery/dist/jquery.min.js')
+		.pipe(gulp.dest(paths.dist))
+		.pipe(browserSync.stream());
+}
+
+// BrowserSync 서버 실행
+function serve() {
+	browserSync.init({
+		server: {
+			baseDir: paths.dist
+		},
+		port: 3000
+	});
+
+	gulp.watch([paths.pages, paths.partials], templates);
+	gulp.watch(paths.styles.scss, styles);
+}
+
+// 기본 태스크
+exports.default = gulp.series(
+	gulp.parallel(templates, styles, copyJquery),
+	serve
+);
