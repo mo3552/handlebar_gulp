@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="main.css" />
-  <title>Gulp Handlebars Page</title>
-</head>
-<body>
-  {{> header}}
-  <main>
-    {{> body-left}}
-	{{> body-right}}
-  </main>
-  {{> footer}}
 
-  <!-- jQuery 및 스크립트 -->
-  <script src="jquery.min.js"></script>
-  <script>
-    $(document).ready(function(){
-		$('#fncBodyBtn').click(function(){
-			alert($(this).text());
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="main.css" />
+	<title>Gulp Handlebars Page</title>
+</head>
+
+<body>
+	{{> header title="HEADER"}}
+	<main>
+		{{> body-left message="this left partials"}}
+		{{> body-right message="this right partials"}}
+	</main>
+	{{> footer title="FOOTER"}}
+
+	<!-- jQuery 및 스크립트 -->
+	<script src="jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('#fncBodyBtn').click(function () {
+				alert($(this).text());
+			});
+			$('#fncBodyBtnGoto').click(function () {
+				window.location.href = '/about.html';
+			})
 		});
-      console.log('jquery loaded!');
-    });
-  </script>
+	</script>
 </body>
+
 </html>
