@@ -34,7 +34,6 @@ main {
 	display: flex;
 	// @include mixins.flex-center;
 	> div {
-		display: flex;
 		@include mixins.flex-center;
 		flex: 1;
 		flex-direction: column;
@@ -44,6 +43,9 @@ main {
 			padding: 0.4em;
 			cursor: pointer;
 			margin: 1em;
+		}
+		p {
+			word-break: break-all;
 		}
 	}
 }
