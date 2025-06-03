@@ -1,4 +1,12 @@
 <div class='body-left'>
 	<h1>{{message}}</h1>
-	<button id='fncBodyBtnGoto'>fnc.goTo.btn</button>
+	<script id='list-template' type='text/x-handlebars-template'>
+		<ul>
+		\{{#each items}}
+			<li>\{{this.title}}</li>
+		\{{/each}}
+		</ul>
+	</script>
+	<!-- Ajax로 리스트가 그려질 자리 -->
+	<div id='list-container'></div>
 </div>

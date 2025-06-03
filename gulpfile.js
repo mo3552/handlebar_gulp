@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const uglify = require('gulp-uglify');
 const handlebars = require('gulp-compile-handlebars');
 const rename = require('gulp-rename');
 const cleanCSS = require('gulp-clean-css');
@@ -12,9 +13,9 @@ const paths = {
 	styles: {
 		scss: 'src/styles/scss/*.scss'
 	},
+	scripts: 'src/js/**/*.js',
 	dist: 'dist'
 };
-
 // Handlebars 빌드
 function templates() {
 	const options = {
@@ -29,17 +30,7 @@ function templates() {
 		.pipe(browserSync.stream());
 }
 
-// CSS 빌드
-function styles() {
-	return gulp.src(paths.styles)
-		.pipe(sourcemaps.init())
-		.pipe(cleanCSS())
-		.pipe(sourcemaps.write('.'))
-		.pipe(gulp.dest(paths.dist))
-		.pipe(browserSync.stream());
-}
-
-// Sass 빌드
+// styles: SCSS → CSS로 변환 + minify
 function styles() {
 	return gulp.src(paths.styles.scss)
 		.pipe(sourcemaps.init())
@@ -50,6 +41,7 @@ function styles() {
 		.pipe(browserSync.stream());
 }
 
+
 // jQuery 복사
 function copyJquery() {
 	return gulp.src('node_modules/jquery/dist/jquery.min.js')
@@ -57,6 +49,18 @@ function copyJquery() {
 		.pipe(browserSync.stream());
 }
 
+// Handlebar 복사
+function copyHandlebars() {
+	return gulp.src('node_modules/handlebars/dist/handlebars.min.js')
+		.pipe(gulp.dest(paths.dist));
+}
+
+// JS 파일을 dist로 복사
+// function scripts() {
+// 	return gulp.src(paths.scripts)
+// 		.pipe(uglify())
+// 		.pipe(gulp.dest(paths.dist + '/js'));
+// }
 // BrowserSync 서버 실행
 function serve() {
 	browserSync.init({
@@ -72,6 +76,6 @@ function serve() {
 
 // 기본 태스크
 exports.default = gulp.series(
-	gulp.parallel(templates, styles, copyJquery),
+	gulp.parallel(templates, styles, copyJquery, copyHandlebars),
 	serve
 );
