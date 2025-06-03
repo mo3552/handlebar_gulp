@@ -33,7 +33,6 @@
 			);
 		};
 
-		// ✅ jQuery & Handlebars 로직 (DOM 준비 시)
 		$(function () {
 			// Handlebars 템플릿 읽기 및 컴파일
 			var source = $('#list-template').html();
@@ -52,7 +51,7 @@
 				}
 			});
 
-			// Google 로그인 응답 처리
+			// 구글 로그인 콜백
 			window.handleCredentialResponse = function (response) {
 				console.log('Encoded JWT:', response.credential);
 				const decoded = parseJwt(response.credential);
