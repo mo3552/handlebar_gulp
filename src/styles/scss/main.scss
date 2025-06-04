@@ -38,11 +38,8 @@ main {
 		flex: 1;
 		flex-direction: column;
 		border: 2px dashed green;
-		> button {
-			font-size: 20px;
-			padding: 0.4em;
-			cursor: pointer;
-			margin: 1em;
+		.btn-google {
+			margin-top: 1em;
 		}
 		p {
 			word-break: break-all;

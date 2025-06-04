@@ -20,6 +20,7 @@
 		"jquery": "^3.7.1"
 	},
 	"devDependencies": {
+		"gulp-htmlmin": "^5.0.1",
 		"gulp-sass": "^6.0.1",
 		"gulp-uglify": "^3.0.2",
 		"sass": "^1.89.1"

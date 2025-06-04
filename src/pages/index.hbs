@@ -53,10 +53,7 @@
 
 			// 구글 로그인 콜백
 			window.handleCredentialResponse = function (response) {
-				console.log('Encoded JWT:', response.credential);
 				const decoded = parseJwt(response.credential);
-				console.log('Decoded JWT:', decoded);
-
 				$('#user-info').html(`<p>안녕하세요, ${decoded.name}님!</p><img src="${decoded.picture}" alt="Profile" width="50"/><p>Email: ${decoded.email}</p><p>Token: ${response.credential} `);
 			};
 

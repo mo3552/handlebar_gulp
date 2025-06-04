@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const uglify = require('gulp-uglify');
+const htmlmin = require('gulp-htmlmin');
 const handlebars = require('gulp-compile-handlebars');
 const rename = require('gulp-rename');
 const cleanCSS = require('gulp-clean-css');
@@ -26,6 +27,11 @@ function templates() {
 		.pipe(rename({
 			extname: '.html'
 		}))
+		// HTML minify
+		.pipe(htmlmin({
+			collapseWhitespace: true,
+			removeComments: true
+		}))
 		.pipe(gulp.dest(paths.dist))
 		.pipe(browserSync.stream());
 }
@@ -40,7 +46,6 @@ function styles() {
 		.pipe(gulp.dest(paths.dist))
 		.pipe(browserSync.stream());
 }
-
 
 // jQuery 복사
 function copyJquery() {
